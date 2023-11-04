@@ -32,6 +32,11 @@ class Data:
 
         # Bollinger Bands
         df['BollingerBands_20_2'] = ta.volatility.bollinger_hband_indicator(df['Close'], window=20, ndev=2)
+        # Modify this line to adapt to your 'ta' library version
+        df['BollingerBands_20_2'] = ta.volatility.BollingerBands(df['Close'], window=20).bollinger_hband()
+
+        # Similarly, adapt other indicators if needed based on your 'ta' version
+
         df['BollingerBands_20_-2'] = ta.volatility.bollinger_lband_indicator(df['Close'], window=20, ndev=2)
 
         # Parabolic SAR

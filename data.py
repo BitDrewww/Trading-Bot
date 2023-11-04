@@ -68,7 +68,8 @@ class Data:
     # Add more functions for data handling, trading strategy, and related operations
 
 if __name__ == '__main__':
-    data_file_path = "BTC_data.csv"  # Replace with the path to your BTC data file
+    # Replace with the actual file path to your BTC data file
+    data_file_path = "/Users/jinwoolee/Documents/Projects/trading-bot/trading-bot/Trading-Bot/BTC_data.csv"  
     data_handler = Data(data_file_path)
     btc_data = data_handler.get_data()
 

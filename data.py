@@ -1,23 +1,21 @@
 import pandas as pd
-import ta  # Import the Technical Analysis Library for indicators
+import ta
+import yfinance as yf  # Import yfinance for data retrieval
 
 class Data:
-    def __init__(self, data_file):
-        # Initialize the Data class with the data file path
-        self.data = self.load_data(data_file)
+    def __init__(self, ticker_symbol):
+        # Initialize the Data class with the ticker symbol
+        self.data = self.load_data(ticker_symbol)
         self.data = self.preprocess_data(self.data)
 
-    def load_data(self, data_file):
-        # Load historical data from a CSV file
-        df = pd.read_csv(data_file)
+    def load_data(self, ticker_symbol):
+        # Load historical data from Yahoo Finance
+        df = yf.download(ticker_symbol, start="2018-01-01", end="2023-01-01")
         return df
 
     def preprocess_data(self, df):
         # Convert 'Date' column to datetime format
-        df['Date'] = pd.to_datetime(df['Date'])
-        
-        # Set 'Date' column as the index
-        df.set_index('Date', inplace=True)
+        df['Date'] = pd.to_datetime(df.index)
 
         # Calculate technical indicators
         df = self.calculate_technical_indicators(df)
@@ -68,12 +66,12 @@ class Data:
     # Add more functions for data handling, trading strategy, and related operations
 
 if __name__ == '__main__':
-    # Replace with the actual file path to your BTC data file
-    data_file_path = "/Users/jinwoolee/Documents/Projects/trading-bot/trading-bot/Trading-Bot/BTC_data.csv"  
-    data_handler = Data(data_file_path)
-    btc_data = data_handler.get_data()
+    # Replace with the actual ticker symbol (e.g., "TSLA" for Tesla)
+    ticker_symbol = "TSLA"  
+    data_handler = Data(ticker_symbol)
+    stock_data = data_handler.get_data()
 
-    # Perform data analysis, trading strategy, and other operations using btc_data
+    # Perform data analysis, trading strategy, and other operations using stock_data
 
     # Example: Accessing data and generating signals
     latest_data_point = data_handler.get_latest_data_point()
